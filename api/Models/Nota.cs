@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Models
 {
@@ -14,7 +15,7 @@ namespace api.Models
             this.valor = valor;
             this.descricao = descricao;
         }
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public string descricao { get; set; }
         public float valor { get; set; }
