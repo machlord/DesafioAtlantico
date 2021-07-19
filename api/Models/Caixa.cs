@@ -12,13 +12,22 @@ namespace api.Models
         {
             this.NotasNoCaixa = new List<CaixaNotas>();
         }
-        public Caixa(int id, bool ativo, string descricao, IEnumerable<CaixaNotas> notasNoCaixa)
+        public Caixa(int id, string descricao, IEnumerable<CaixaNotas> notasNoCaixa)
         {
             this.id = id;
             this.descricao = descricao;
-            this.ativo = ativo;
+            this.ativo = true;
             this.NotasNoCaixa = notasNoCaixa;
         }
+
+        public Caixa(int id, string descricao)
+        {
+            this.id = id;
+            this.descricao = descricao;
+            this.ativo = true;
+            this.NotasNoCaixa = new List<CaixaNotas>();
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public bool ativo { get; set; }

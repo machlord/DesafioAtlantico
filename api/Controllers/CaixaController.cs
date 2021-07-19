@@ -10,43 +10,18 @@ namespace api.Controllers
     [Route("caixa")]
     public class CaixaController : ControllerBase
     {
+        private readonly IRepository _repo;
         public CaixaController(IRepository repository)
         {
-
+            _repo = repository;
         }
-        /*
-                [HttpGet]
-                [Route("")]
-                public async Task<ActionResult<List<Caixa>>> Get([FromServices] DataContext context)
-                {
-                    var submaterias = await context.submaterias.AsNoTracking().ToListAsync();
-                    return submaterias;
-                }
 
-                [HttpGet]
-                [Route("getByMateria/{materia_id:int}")]
-                public async Task<ActionResult<List<Caixa>>> Get([FromServices] DataContext context, int materia_id)
-                {
-                    var submaterias = await context.submaterias.Include(x => x.Materia).Where(p => p.materia_id == materia_id).AsNoTracking().ToListAsync();
-                    return submaterias;
-                }
+        //**Sacar no caixa;
+        //Valor tem que ser entre 0 e 1000;
+        //Valor tem que ser exatamento o numero de notas
+        //*Saber o numero de notas em cada caixas*;
+        //*Se ocorreu algum erro*;
+        //*Ativa e desativar o caixa*;
 
-
-                [HttpPost]
-                [Route("")]
-                public async Task<ActionResult<Caixa>> Post([FromServices] DataContext context, [FromBody] SubMateria model)
-                {
-                    if (ModelState.IsValid)
-                    {
-                        context.submaterias.Add(model);
-                        await context.SaveChangesAsync();
-                        return model;
-                    }
-                    else
-                    {
-                        return BadRequest(ModelState);
-                    }
-                }
-                */
     }
 }

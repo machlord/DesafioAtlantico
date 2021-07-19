@@ -9,11 +9,12 @@ namespace api.Models
         {
 
         }
-        public CaixaNotas(Nota nota, Caixa caixa)
+        public CaixaNotas(int id, int NotaId, int CaixaId, int quantidade)
         {
             this.id = id;
-            this.Nota = nota;
-            this.Caixa = caixa;
+            this.NotaId = NotaId;
+            this.CaixaId = CaixaId;
+            this.quantidade = quantidade;
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
@@ -21,5 +22,6 @@ namespace api.Models
         public Nota Nota { get; set; }
         public int CaixaId { get; set; }
         public Caixa Caixa { get; set; }
+        public int quantidade { get; set; }
     }
 }
