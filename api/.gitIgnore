@@ -75,4 +75,5 @@ _[Ss]cripts
 *.dot[Cc]over
 # Custom #
 ######################
-BancoAtlantico.db
+BancoAtlantico.*
+Migrations\*

@@ -27,6 +27,8 @@ namespace api.Data
                 }
             );
 
+            //**Dados TESTE **//
+
             //Criar os caixas para teste;
             builder.Entity<Caixa>().HasData(new List<Caixa>() {
                 new Caixa(1, "Caixa 01"),
