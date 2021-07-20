@@ -37,6 +37,11 @@ namespace api.Models
 
         public List<NotaSaida> Saque(float valor)
         {
+            if (this.ativo == false)
+            {
+                throw new ArgumentException("Caixa desativo");
+            }
+
             //Armazeno o valor para processamento
             float valor_restante = valor;
             //Separa as notas
