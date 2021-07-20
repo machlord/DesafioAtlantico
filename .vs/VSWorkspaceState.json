@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\api",
+    "\\api\\Controllers",
     "\\api\\Models"
   ],
-  "SelectedNode": "\\api\\Startup.cs",
+  "SelectedNode": "\\api\\Controllers\\CaixaController.cs",
   "PreviewInSolutionExplorer": false
 }

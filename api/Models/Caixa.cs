@@ -1,8 +1,6 @@
 
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
 namespace api.Models
 {
 
@@ -10,14 +8,14 @@ namespace api.Models
     {
         public Caixa()
         {
-            this.NotasNoCaixa = new List<CaixaNotas>();
+            this.CaixaNotas = new List<CaixaNotas>();
         }
-        public Caixa(int id, string descricao, IEnumerable<CaixaNotas> notasNoCaixa)
+        public Caixa(int id, string descricao, ICollection<CaixaNotas> CaixaNotas)
         {
             this.id = id;
             this.descricao = descricao;
             this.ativo = true;
-            this.NotasNoCaixa = notasNoCaixa;
+            this.CaixaNotas = CaixaNotas;
         }
 
         public Caixa(int id, string descricao)
@@ -25,13 +23,12 @@ namespace api.Models
             this.id = id;
             this.descricao = descricao;
             this.ativo = true;
-            this.NotasNoCaixa = new List<CaixaNotas>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public bool ativo { get; set; }
         public string descricao { get; set; }
-        public IEnumerable<CaixaNotas> NotasNoCaixa { get; set; }
+        public virtual ICollection<CaixaNotas> CaixaNotas { get; set; }
     }
 }

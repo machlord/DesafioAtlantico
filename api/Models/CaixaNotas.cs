@@ -22,7 +22,6 @@ namespace api.Models
         public int NotaId { get; set; }
         public Nota Nota { get; set; }
         public int CaixaId { get; set; }
-        public Caixa Caixa { get; set; }
         public int quantidade { get; set; }
     }
 }
