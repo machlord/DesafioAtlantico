@@ -21,8 +21,8 @@ namespace api.Controllers
 
         //**Sacar no caixa;
         [HttpGet]
-        [Route("getCaixa/{caixa_id:int}/{valor:int}")]
-        public async Task<ActionResult<List<Object>>> Get([FromServices] DataContext context, int caixa_id, float valor)
+        [Route("saque/{caixa_id:int}/{valor:int}")]
+        public async Task<ActionResult<List<ResumoSaida>>> Saque([FromServices] DataContext context, int caixa_id, float valor)
         {
             //var caixa = await context.Caixas.Include(n => n.CaixaNotas).Where(x => x.id == caixa_id).AsNoTracking().ToListAsync();
             float valor_restante = valor;
@@ -30,50 +30,43 @@ namespace api.Controllers
             var notas = context.CaixasNotas.Include(n => n.Nota).Where(n => n.CaixaId == caixa.id).AsNoTracking().ToList();
             notas = notas.OrderByDescending(e => e.Nota.valor).ToList();
 
-            var resumo = new[] {
-                new { valor = 50, total = 0 },
-                new { valor = 20, total = 0 },
-                new { valor = 10, total = 0 },
-                new { valor = 5, total = 0 },
-                new { valor = 2, total = 0 }
+            var resumo = new List<ResumoSaida> {
+                new ResumoSaida { valor = 50, liberar = 0 },
+                new ResumoSaida { valor = 20, liberar = 0 },
+                new ResumoSaida { valor = 10, liberar = 0 },
+                new ResumoSaida { valor = 5, liberar = 0 },
+                new ResumoSaida { valor = 2, liberar = 0 }
             };
 
-            try
+
+            var nota_atual = 0;
+            while (valor_restante > 0 && nota_atual <= (notas.Count - 1))
             {
-                var nota_atual = 0;
-                while (valor_restante > 0 && nota_atual <= (notas.Count - 1))
+                if (valor_restante < notas[nota_atual].Nota.valor)
                 {
-                    if (valor_restante < notas[nota_atual].Nota.valor)
-                    {
-                        nota_atual++;
-                        continue;
-                    }
-
-                    //Diminuir o valor
-                    valor_restante -= notas[nota_atual].Nota.valor;
-                    //Retirar do Estoque
-                    notas[nota_atual].quantidade--;
-                    //colocar no meu resumo
-                    //resumo[nota_atual] = new { valor = resumo[nota_atual].valor, total = resumo[nota_atual].total + 1 };
-                    resumo.Where(x => x.valor == resumo[nota_atual].valor).First().SetValue();
-
-                    if (notas[nota_atual].quantidade == 0)
-                    {
-                        nota_atual++;
-                    }
-
+                    nota_atual++;
+                    continue;
                 }
-                if (valor_restante > 0)
+
+                //Diminuir o valor
+                valor_restante -= notas[nota_atual].Nota.valor;
+                //Retirar do Estoque
+                notas[nota_atual].quantidade--;
+                //colocar no meu resumo
+                resumo.Where(x => x.valor == resumo[nota_atual].valor).First().liberar += 1;
+
+                if (notas[nota_atual].quantidade == 0)
                 {
-                    throw new Exception();
+                    nota_atual++;
                 }
-                //Salva a retirada
-                return resumo;
+
             }
-            catch (Exception ex)
+            if (valor_restante > 0)
             {
-                return new BadRequestResult();
+                throw new ArgumentException("O valor solicitado não corresponde com as notas disponíveis");
             }
+            //Salva a retirada
+            return resumo;
         }
 
         //Valor tem que ser entre 0 e 1000;
