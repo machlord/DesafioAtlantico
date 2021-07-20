@@ -34,7 +34,7 @@ namespace api.Controllers
             //Recebe o retorno das notas para serem retiradas
             var retorno = caixa.Saque(valor);
             //Persiste a mudança
-            context.Caixas.Add(caixa);
+            context.Caixas.Update(caixa);
             await context.SaveChangesAsync();
             return retorno;
 
