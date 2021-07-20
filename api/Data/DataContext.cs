@@ -13,8 +13,6 @@ namespace api.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //Chave composta
-            builder.Entity<CaixaNotas>().HasKey(CN => new { CN.CaixaId, CN.NotaId });
 
             //Inicialização das Notas
             builder.Entity<Nota>().HasData(

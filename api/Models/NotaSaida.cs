@@ -1,8 +1,8 @@
 namespace api.Models
 {
-    public class ResumoSaida
+    public class NotaSaida
     {
         public int valor { get; set; }
-        public int liberar { get; set; }
+        public int quantidade { get; set; }
     }
 }
