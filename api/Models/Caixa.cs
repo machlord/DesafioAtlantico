@@ -103,5 +103,15 @@ namespace api.Models
             //salva a movimentação
             return resumo;
         }
+
+        public void DesativarCaixa()
+        {
+            this.ativo = false;
+        }
+
+        public void AtivarCaixa()
+        {
+            this.ativo = true;
+        }
     }
 }

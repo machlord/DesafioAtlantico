@@ -52,7 +52,44 @@ namespace api.Controllers
             return caixa.CaixaNotas;
         }
 
-        //*Ativa e desativar o caixa*;
+        //*Ativa o caixa*;
+        [HttpGet]
+        [Route("ativar/{caixa_id:int}")]
+        public async Task<ActionResult<bool>> Ativar([FromServices] DataContext context, int caixa_id)
+        {
+            try
+            {
+                var caixa = await context.Caixas.Where(x => x.id == caixa_id).FirstAsync();
+                caixa.AtivarCaixa();
+                context.Caixas.Update(caixa);
+                await context.SaveChangesAsync();
 
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { erro = "falha ao ativar caixa", ex = ex.Message });
+            }
+        }
+
+        //*desativar o caixa*;
+        [HttpGet]
+        [Route("desativar/{caixa_id:int}")]
+        public async Task<ActionResult<bool>> Desativar([FromServices] DataContext context, int caixa_id)
+        {
+            try
+            {
+                var caixa = await context.Caixas.Where(x => x.id == caixa_id).FirstAsync();
+                caixa.DesativarCaixa();
+                context.Caixas.Update(caixa);
+                await context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { erro = "falha ao desativar caixa", ex = ex.Message });
+            }
+        }
     }
 }
