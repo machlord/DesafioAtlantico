@@ -13,6 +13,7 @@ namespace api.Models
         {
             this.CaixaNotas = new List<CaixaNotas>();
         }
+
         public Caixa(int id, string descricao, List<CaixaNotas> CaixaNotas)
         {
             this.id = id;
@@ -45,11 +46,11 @@ namespace api.Models
 
             //Inicia o Resumo de saida
             var resumo = new List<NotaSaida> {
-                new NotaSaida { valor = 50, quantidade = 0 },
-                new NotaSaida { valor = 20, quantidade = 0 },
-                new NotaSaida { valor = 10, quantidade = 0 },
-                new NotaSaida { valor = 5, quantidade = 0 },
-                new NotaSaida { valor = 2, quantidade = 0 }
+                new NotaSaida { valor = 50, quantidade = 0, CaixaId = this.id, NotaId = 1 },
+                new NotaSaida { valor = 20, quantidade = 0, CaixaId = this.id, NotaId = 2 },
+                new NotaSaida { valor = 10, quantidade = 0, CaixaId = this.id, NotaId = 3 },
+                new NotaSaida { valor = 5,  quantidade = 0, CaixaId = this.id, NotaId = 4 },
+                new NotaSaida { valor = 2,  quantidade = 0, CaixaId = this.id, NotaId = 5 }
             };
             //Inicia qual nota esta olhando
             var nota_atual = 0;

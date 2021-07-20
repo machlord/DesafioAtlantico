@@ -10,9 +10,14 @@ namespace api.Data
         public DbSet<Caixa> Caixas { get; set; }
         public DbSet<CaixaNotas> CaixasNotas { get; set; }
         public DbSet<Nota> Notas { get; set; }
+        public DbSet<NotaSaida> NotasSaidas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //Criar o default data
+            builder.Entity<NotaSaida>()
+                    .Property(b => b.CreatedDate)
+                    .HasDefaultValueSql("getdate()");
 
             //Inicialização das Notas
             builder.Entity<Nota>().HasData(

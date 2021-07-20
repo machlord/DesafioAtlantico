@@ -48,8 +48,7 @@ namespace api.Controllers
             var caixa = await context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).AsNoTracking().FirstAsync();
             return caixa.CaixaNotas;
         }
-        //*Saber o numero de notas em cada caixas*;
-        //*Se ocorreu algum erro*;
+
         //*Ativa e desativar o caixa*;
 
     }
