@@ -99,6 +99,8 @@ namespace api.Models
 
             //Retira do estoque
             this.CaixaNotas = notas;
+
+            //salva a movimentação
             return resumo;
         }
     }

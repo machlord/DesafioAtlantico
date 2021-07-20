@@ -17,7 +17,7 @@ namespace api.Data
             //Criar o default data
             builder.Entity<NotaSaida>()
                     .Property(b => b.CreatedDate)
-                    .HasDefaultValueSql("getdate()");
+                    .HasDefaultValueSql("datetime('now','localtime')");
 
             //Inicialização das Notas
             builder.Entity<Nota>().HasData(
