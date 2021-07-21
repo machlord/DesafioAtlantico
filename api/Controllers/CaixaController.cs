@@ -20,7 +20,15 @@ namespace api.Controllers
             _repo = repository;
         }
 
-        //**Sacar no caixa;
+        //**Pegar caixas;
+        [HttpGet]
+        [Route("")]
+        public async Task<ActionResult<List<Caixa>>> Get([FromServices] DataContext context)
+        {
+            return await context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).AsNoTracking().ToListAsync();
+        }
+
+        //**Sacar em um caixa;
         [HttpGet]
         [Route("saque/{caixa_id:int}/{valor:int}")]
         public async Task<ActionResult<List<NotaSaida>>> Saque([FromServices] DataContext context, int caixa_id, float valor)
@@ -43,6 +51,7 @@ namespace api.Controllers
 
         }
 
+        //*Estoque de um caixa*;
         [HttpGet]
         [Route("estoque/{caixa_id:int}")]
         public async Task<ActionResult<List<CaixaNotas>>> Estoque([FromServices] DataContext context, int caixa_id)
@@ -52,7 +61,7 @@ namespace api.Controllers
             return caixa.CaixaNotas;
         }
 
-        //*Ativa o caixa*;
+        //*Ativa um caixa*;
         [HttpGet]
         [Route("ativar/{caixa_id:int}")]
         public async Task<ActionResult<bool>> Ativar([FromServices] DataContext context, int caixa_id)
@@ -72,7 +81,7 @@ namespace api.Controllers
             }
         }
 
-        //*desativar o caixa*;
+        //*desativar um caixa*;
         [HttpGet]
         [Route("desativar/{caixa_id:int}")]
         public async Task<ActionResult<bool>> Desativar([FromServices] DataContext context, int caixa_id)
