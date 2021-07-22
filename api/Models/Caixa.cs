@@ -29,6 +29,13 @@ namespace api.Models
             this.ativo = true;
         }
 
+        public Caixa(int id, string descricao, bool ativo)
+        {
+            this.id = id;
+            this.descricao = descricao;
+            this.ativo = ativo;
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public bool ativo { get; set; }

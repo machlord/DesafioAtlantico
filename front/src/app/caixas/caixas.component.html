@@ -1,12 +1,49 @@
- <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-     <div class="col">
-       <div class="card" style="width: 18rem;">
-         <img class="card-img-top" >
-         <div class="card-body">
-           <h5 class="card-title">Card title</h5>
-           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-           <a href="#" class="btn btn-primary">Go somewhere</a>
-         </div>
-       </div>
+
+ <div class='container'>
+   <div class="row">
+      <div *ngFor="let item of caixas" class="col" style="width: 300px;">
+        <div class="card" style="padding-bottom: 10px;">
+          <img class="card-img-top" >
+          <div class="card-body">
+            <h5 class="card-title">{{item.descricao}}</h5>
+            <p class="card-text">Caixa Atlantico</p>
+          </div>
+          <div *ngIf="item.ativo" class="card-header bg-success text-white">
+             <b>
+               Ativo
+             </b>
+          </div>
+          <div *ngIf="!item.ativo" class="card-header bg-danger text-white">
+            <b>
+              Desativo
+            </b>
+          </div>
+          <div  *ngFor="let nota_caixa of item.caixaNotas;index as i" class="list-group d-flex flex-row flex-wrap">
+            <div *ngIf="i == 0" class="list-group-item w-50 list-group-item-action bg-secondary text-white">
+              <b>
+                <i>
+                  Valor
+                </i>
+              </b>
+            </div>
+            <div *ngIf="i == 0" class="list-group-item w-50 list-group-item-action bg-secondary text-white">
+                <b>
+                  <i>
+                    Qtd
+                  </i>
+                </b>
+            </div>
+
+            <div class="list-group-item w-50 list-group-item-action">
+              <b>
+                {{nota_caixa.nota.descricao}}
+              </b>
+            </div>
+            <div class="list-group-item w-50 list-group-item-action">
+                {{nota_caixa.quantidade}}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>

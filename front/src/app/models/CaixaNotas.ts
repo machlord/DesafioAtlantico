@@ -3,7 +3,7 @@ import { Nota } from './Nota';
 export class CaixaNotas {
   id: number;
   NotaId: number;
-  Nota: Nota;
+  nota: Nota;
   CaixaId: number;
   quantidade: number;
 }

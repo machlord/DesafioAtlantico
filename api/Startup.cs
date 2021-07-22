@@ -65,7 +65,11 @@ namespace api
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
+            app.UseCors(x => x.AllowAnyOrigin()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader()
+                        );
 
             app.UseEndpoints(endpoints =>
             {

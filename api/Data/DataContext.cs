@@ -34,9 +34,9 @@ namespace api.Data
 
             //Criar os caixas para teste;
             builder.Entity<Caixa>().HasData(new List<Caixa>() {
-                new Caixa(1, "Caixa 01"),
-                new Caixa(2, "Caixa 02"),
-                new Caixa(3, "Caixa 03")
+                new Caixa(1, "Caixa 01", true),
+                new Caixa(2, "Caixa 02", true),
+                new Caixa(3, "Caixa 03", false)
             });
 
             //Criar a quantidade de notas em cada caixas;

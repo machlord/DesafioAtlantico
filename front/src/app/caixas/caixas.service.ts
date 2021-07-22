@@ -8,11 +8,11 @@ import { Caixa } from '../models/Caixa';
   providedIn: 'root'
 })
 export class CaixasService {
-  baseUrl = `${environment.urlBase}api/aluno`;
+  baseUrl = `${environment.urlBase}v1/caixa`;
 
   constructor(private http: HttpClient) { }
 
-  getAll():Observable<Caixa[]> {
+  getAll() : Observable<Caixa[]> {
     return this.http.get<Caixa[]>(`${this.baseUrl}`);
   }
 }
