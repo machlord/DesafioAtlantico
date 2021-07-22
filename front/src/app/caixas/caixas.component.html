@@ -4,16 +4,16 @@
       <div *ngFor="let item of caixas" class="col" style="width: 300px;">
         <div class="card" style="padding-bottom: 10px;">
           <img class="card-img-top" >
-          <div class="card-body">
+          <div class="card-body card-blue">
             <h5 class="card-title">{{item.descricao}}</h5>
             <p class="card-text">Caixa Atlantico</p>
           </div>
-          <div *ngIf="item.ativo" class="card-header bg-success text-white">
+          <div *ngIf="item.ativo" class="card-header bg-ativo text-white">
              <b>
                Ativo
              </b>
           </div>
-          <div *ngIf="!item.ativo" class="card-header bg-danger text-white">
+          <div *ngIf="!item.ativo" class="card-header bg-desativo text-white">
             <b>
               Desativo
             </b>

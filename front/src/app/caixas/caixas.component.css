@@ -1,5 +1,5 @@
 .list-group-item {
-  border-bottom:white 1px solid;
+  border-bottom: white 1px solid;
   border-radius: 0;
 }
 
@@ -9,4 +9,33 @@
 
 .btn-card-tamanho {
   width: 115px;
+}
+
+.card-blue {
+  background: rgb(0, 56, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 56, 255, 1) 5%,
+    rgba(0, 77, 182, 1) 53%
+  );
+  color: white;
+}
+
+.bg-secondary {
+  background-color: #002b66 !important;
+}
+
+.bg-ativo {
+  background: linear-gradient(
+    90deg,
+    rgb(227, 0, 247) 4%,
+    rgb(227, 0, 253) 11%,
+    rgb(226, 0, 217) 44%,
+    rgb(227, 0, 255) 80%
+  );
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.bg-desativo {
+  background-color: #f75100 !important;
 }
