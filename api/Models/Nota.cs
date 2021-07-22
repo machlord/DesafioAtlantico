@@ -9,15 +9,18 @@ namespace api.Models
         {
 
         }
-        public Nota(int id, float valor, string descricao)
+        public Nota(int id, float valor, string descricao, int critico)
         {
             this.id = id;
             this.valor = valor;
             this.descricao = descricao;
+            this.critico = critico;
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public string descricao { get; set; }
         public float valor { get; set; }
+        public int critico { get; set; }
+
     }
 }

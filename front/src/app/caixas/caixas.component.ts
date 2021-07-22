@@ -1,6 +1,8 @@
 import { Caixa } from './../models/Caixa';
 import { CaixasService } from './caixas.service';
 import { Component, OnInit } from '@angular/core';
+import { faMoneyBillWave, fas } from '@fortawesome/free-solid-svg-icons';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-caixas',
@@ -10,7 +12,11 @@ import { Component, OnInit } from '@angular/core';
 export class CaixasComponent implements OnInit {
   public caixas: Caixa[];
 
-  constructor(private caixaService: CaixasService) { }
+  public faMoneyBillWave = faMoneyBillWave;
+
+  constructor(private caixaService: CaixasService) {
+
+   }
 
   ngOnInit(): void {
     this.carregarCaixas();

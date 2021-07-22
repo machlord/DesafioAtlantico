@@ -21,6 +21,7 @@
           <div  *ngFor="let nota_caixa of item.caixaNotas;index as i" class="list-group d-flex flex-row flex-wrap">
             <div *ngIf="i == 0" class="list-group-item w-50 list-group-item-action bg-secondary text-white">
               <b>
+               <fa-icon [icon]="faMoneyBillWave"></fa-icon>
                 <i>
                   Valor
                 </i>
