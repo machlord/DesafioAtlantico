@@ -14,39 +14,39 @@ namespace api.Controllers
     [Route("v1/caixa")]
     public class CaixaController : ControllerBase
     {
-        private readonly IRepository _repo;
-        public CaixaController(IRepository repository)
+        private readonly DataContext _context;
+        public CaixaController(DataContext context)
         {
-            _repo = repository;
+            _context = context;
         }
 
         //**Pegar caixas;
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Caixa>>> Get([FromServices] DataContext context)
+        public async Task<ActionResult<List<Caixa>>> Get()
         {
-            return await context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).AsNoTracking().ToListAsync();
+            return await _context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).AsNoTracking().ToListAsync();
         }
 
         //**Sacar em um caixa;
         [HttpGet]
         [Route("saque/{caixa_id:int}/{valor:int}")]
-        public async Task<ActionResult<List<NotaSaida>>> Saque([FromServices] DataContext context, int caixa_id, float valor)
+        public async Task<ActionResult<List<NotaSaida>>> Saque(int caixa_id, float valor)
         {
             if (valor <= 0 || valor > 10000)
             {
                 return BadRequest(new { error = $"Valor invalido de saque! o valor deve ser entre 0 e 1000, você escolheu: {valor}" });
             }
             //Carrega o caixa
-            var caixa = await context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).AsNoTracking().FirstAsync();
+            var caixa = await _context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).AsNoTracking().FirstAsync();
             //Recebe o retorno das notas para serem retiradas
             var retorno = caixa.Saque(valor);
             //salva a movimentação
-            context.NotasSaidas.AddRange(retorno);
+            _context.NotasSaidas.AddRange(retorno);
 
             //Persiste a mudança
-            context.Caixas.Update(caixa);
-            await context.SaveChangesAsync();
+            _context.Caixas.Update(caixa);
+            await _context.SaveChangesAsync();
             return retorno;
 
         }
@@ -54,24 +54,24 @@ namespace api.Controllers
         //*Estoque de um caixa*;
         [HttpGet]
         [Route("estoque/{caixa_id:int}")]
-        public async Task<ActionResult<List<CaixaNotas>>> Estoque([FromServices] DataContext context, int caixa_id)
+        public async Task<ActionResult<List<CaixaNotas>>> Estoque(int caixa_id)
         {
             //Retorna o estoque do caixa
-            var caixa = await context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).AsNoTracking().FirstAsync();
+            var caixa = await _context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).AsNoTracking().FirstAsync();
             return caixa.CaixaNotas;
         }
 
         //*Ativa um caixa*;
         [HttpGet]
         [Route("ativar/{caixa_id:int}")]
-        public async Task<ActionResult<Caixa>> Ativar([FromServices] DataContext context, int caixa_id)
+        public async Task<ActionResult<Caixa>> Ativar(int caixa_id)
         {
             try
             {
-                var caixa = await context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).FirstAsync();
+                var caixa = await _context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).FirstAsync();
                 caixa.AtivarCaixa();
-                context.Caixas.Update(caixa);
-                await context.SaveChangesAsync();
+                _context.Caixas.Update(caixa);
+                await _context.SaveChangesAsync();
 
                 return caixa;
             }
@@ -84,14 +84,14 @@ namespace api.Controllers
         //*desativar um caixa*;
         [HttpGet]
         [Route("desativar/{caixa_id:int}")]
-        public async Task<ActionResult<Caixa>> Desativar([FromServices] DataContext context, int caixa_id)
+        public async Task<ActionResult<Caixa>> Desativar(int caixa_id)
         {
             try
             {
-                var caixa = await context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).FirstAsync();
+                var caixa = await _context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).FirstAsync();
                 caixa.DesativarCaixa();
-                context.Caixas.Update(caixa);
-                await context.SaveChangesAsync();
+                _context.Caixas.Update(caixa);
+                await _context.SaveChangesAsync();
 
                 return caixa;
             }
