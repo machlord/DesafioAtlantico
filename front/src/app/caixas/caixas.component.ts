@@ -10,17 +10,17 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
   styleUrls: ['./caixas.component.css']
 })
 export class CaixasComponent implements OnInit {
-  //** Variáveis Públicas**//
+  //** Variáveis Públicas **//
   public caixas: Caixa[];
 
-  //** Icones**//
+  //** Icones **//
   public faMoneyBillWave = faMoneyBillWave;
   public faExclamationCircle = faExclamationCircle;
 
   //** Construtor **//
   constructor(private caixaService: CaixasService) {}
 
-  //** Funções**//
+  //** Funções **//
 
   //Init
   ngOnInit(): void {

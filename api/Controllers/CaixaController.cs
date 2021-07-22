@@ -29,9 +29,9 @@ namespace api.Controllers
         }
 
         //**Faz um Saque em um caixa;
-        [HttpGet]
-        [Route("saque/{caixa_id:int}/{valor:int}")]
-        public async Task<ActionResult<List<NotaSaida>>> Saque(int caixa_id, float valor)
+        [HttpPost]
+        [Route("saque/{caixa_id:int}")]
+        public async Task<ActionResult<List<NotaSaida>>> Saque(int caixa_id, [FromBody] float valor)
         {
             if (valor <= 0 || valor > 10000)
             {
@@ -62,7 +62,7 @@ namespace api.Controllers
         }
 
         //*Ativa um caixa*;
-        [HttpGet]
+        [HttpPut]
         [Route("ativar/{caixa_id:int}")]
         public async Task<ActionResult<Caixa>> Ativar(int caixa_id)
         {
@@ -82,7 +82,7 @@ namespace api.Controllers
         }
 
         //*desativar um caixa*;
-        [HttpGet]
+        [HttpPut]
         [Route("desativar/{caixa_id:int}")]
         public async Task<ActionResult<Caixa>> Desativar(int caixa_id)
         {

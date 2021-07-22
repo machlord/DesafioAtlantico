@@ -19,12 +19,12 @@ export class CaixasService {
   }
 
   //Desativa um caixa
-  disableCaixa(caixa_id : number): Observable<Caixa> {
-    return this.http.get<Caixa>(`${this.baseUrl}/ativar/${caixa_id}`);
+  disableCaixa(caixa_id : number): Observable<Caixa>{
+    return this.http.put<Caixa>(`${this.baseUrl}/ativar/${caixa_id}`, null);
   }
 
   //Ativa um caixa
   enableCaixa(caixa_id : number): Observable<Caixa> {
-    return this.http.get<Caixa>(`${this.baseUrl}/desativar/${caixa_id}`);
+    return this.http.put<Caixa>(`${this.baseUrl}/desativar/${caixa_id}`, null);
   }
 }
