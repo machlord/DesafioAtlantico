@@ -46,6 +46,17 @@
                 </div>
             </div>
           </div>
+           <div *ngIf="item.ativo" class="card-header">
+             <b>
+               <button type="button" class="btn btn-primary btn-card-tamanho" (click)="desativarCaixa(item)">Desativar</button>
+             </b>
+          </div>
+          <div *ngIf="!item.ativo" class="card-header">
+            <b>
+             <button type="button" class="btn btn-primary btn-card-tamanho"  (click)="ativarCaixa(item)">Ativar</button>
+            </b>
+          </div>
+
         </div>
       </div>
     </div>

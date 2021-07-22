@@ -14,17 +14,35 @@ export class CaixasComponent implements OnInit {
   public faMoneyBillWave = faMoneyBillWave;
   public faExclamationCircle = faExclamationCircle;
 
-  constructor(private caixaService: CaixasService) {
-
-   }
+  constructor(private caixaService: CaixasService) {}
 
   ngOnInit(): void {
     this.carregarCaixas();
   }
 
-  carregarCaixas() {
+  carregarCaixas(): void{
     this.caixaService.getAll().subscribe(
       (caixas: Caixa[]) => { this.caixas = caixas },
+      (erro: any) => { console.log(erro) }
+    );
+  }
+
+  ativarCaixa(caixa : Caixa) {
+    this.caixaService.disableCaixa(caixa.id).subscribe(
+      (response: Caixa) => {
+        let index = this.caixas.indexOf(caixa);
+        this.caixas[index] = response;
+      },
+      (erro: any) => { console.log(erro) }
+    );
+  }
+
+  desativarCaixa(caixa : Caixa) {
+    this.caixaService.enableCaixa(caixa.id).subscribe(
+      (response: Caixa) => {
+        let index = this.caixas.indexOf(caixa);
+        this.caixas[index] = response;
+      },
       (erro: any) => { console.log(erro) }
     );
   }

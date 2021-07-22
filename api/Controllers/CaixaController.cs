@@ -64,16 +64,16 @@ namespace api.Controllers
         //*Ativa um caixa*;
         [HttpGet]
         [Route("ativar/{caixa_id:int}")]
-        public async Task<ActionResult<bool>> Ativar([FromServices] DataContext context, int caixa_id)
+        public async Task<ActionResult<Caixa>> Ativar([FromServices] DataContext context, int caixa_id)
         {
             try
             {
-                var caixa = await context.Caixas.Where(x => x.id == caixa_id).FirstAsync();
+                var caixa = await context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).FirstAsync();
                 caixa.AtivarCaixa();
                 context.Caixas.Update(caixa);
                 await context.SaveChangesAsync();
 
-                return true;
+                return caixa;
             }
             catch (Exception ex)
             {
@@ -84,16 +84,16 @@ namespace api.Controllers
         //*desativar um caixa*;
         [HttpGet]
         [Route("desativar/{caixa_id:int}")]
-        public async Task<ActionResult<bool>> Desativar([FromServices] DataContext context, int caixa_id)
+        public async Task<ActionResult<Caixa>> Desativar([FromServices] DataContext context, int caixa_id)
         {
             try
             {
-                var caixa = await context.Caixas.Where(x => x.id == caixa_id).FirstAsync();
+                var caixa = await context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).FirstAsync();
                 caixa.DesativarCaixa();
                 context.Caixas.Update(caixa);
                 await context.SaveChangesAsync();
 
-                return true;
+                return caixa;
             }
             catch (Exception ex)
             {

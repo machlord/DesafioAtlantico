@@ -6,3 +6,7 @@
 .bg-pink {
   background: rgb(253, 236, 236);
 }
+
+.btn-card-tamanho {
+  width: 115px;
+}
