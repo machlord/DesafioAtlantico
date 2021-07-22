@@ -35,13 +35,15 @@
                 </b>
             </div>
 
-            <div class="list-group-item w-50 list-group-item-action">
+            <div class="list-group-item w-50 list-group-item-action" [ngClass]="{'bg-pink': nota_caixa.quantidade <= nota_caixa.nota.critico}">
               <b>
                 {{nota_caixa.nota.descricao}}
               </b>
             </div>
-            <div class="list-group-item w-50 list-group-item-action">
-                {{nota_caixa.quantidade}}
+            <div class="list-group-item w-50 list-group-item-action" [ngClass]="{'bg-pink': nota_caixa.quantidade <= nota_caixa.nota.critico}">
+                <div [ngClass]="{'text-danger font-weight-bold': nota_caixa.quantidade <= nota_caixa.nota.critico}">
+                  {{nota_caixa.quantidade}}
+                </div>
             </div>
           </div>
         </div>

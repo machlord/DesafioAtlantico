@@ -1,7 +1,7 @@
 import { Caixa } from './../models/Caixa';
 import { CaixasService } from './caixas.service';
 import { Component, OnInit } from '@angular/core';
-import { faMoneyBillWave, fas } from '@fortawesome/free-solid-svg-icons';
+import { faMoneyBillWave, fas, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 @Component({
@@ -11,8 +11,8 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 })
 export class CaixasComponent implements OnInit {
   public caixas: Caixa[];
-
   public faMoneyBillWave = faMoneyBillWave;
+  public faExclamationCircle = faExclamationCircle;
 
   constructor(private caixaService: CaixasService) {
 
