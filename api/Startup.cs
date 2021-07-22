@@ -25,7 +25,7 @@ namespace api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //Adicionando context direcionado a SQLITE
             services.AddDbContext<DataContext>(
                 x => x.UseSqlite(Configuration.GetConnectionString("DefaultConn"))
             );
@@ -33,6 +33,7 @@ namespace api
                     .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling =
                         Newtonsoft.Json.ReferenceLoopHandling.Ignore
                     );
+            //Adicção do Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "api", Version = "v1" });
@@ -50,6 +51,7 @@ namespace api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "api v1"));
             }
 
+            //Lidando custom com exceções 
             app.UseExceptionHandler(c => c.Run(async context =>
             {
                 var exception = context.Features
@@ -65,6 +67,7 @@ namespace api
 
             app.UseRouting();
 
+            //Desabilitando momentaneamente Autorização e segurança;
             //app.UseAuthorization();
             app.UseCors(x => x.AllowAnyOrigin()
                               .AllowAnyMethod()

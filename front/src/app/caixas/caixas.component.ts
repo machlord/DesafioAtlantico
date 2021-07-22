@@ -10,16 +10,24 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
   styleUrls: ['./caixas.component.css']
 })
 export class CaixasComponent implements OnInit {
+  //** Variáveis Públicas**//
   public caixas: Caixa[];
+
+  //** Icones**//
   public faMoneyBillWave = faMoneyBillWave;
   public faExclamationCircle = faExclamationCircle;
 
+  //** Construtor **//
   constructor(private caixaService: CaixasService) {}
 
+  //** Funções**//
+
+  //Init
   ngOnInit(): void {
     this.carregarCaixas();
   }
 
+  //Carrega todos os caixas
   carregarCaixas(): void{
     this.caixaService.getAll().subscribe(
       (caixas: Caixa[]) => { this.caixas = caixas },
@@ -27,6 +35,7 @@ export class CaixasComponent implements OnInit {
     );
   }
 
+  //Ativa um caixa Expecífico
   ativarCaixa(caixa : Caixa) {
     this.caixaService.disableCaixa(caixa.id).subscribe(
       (response: Caixa) => {
@@ -37,6 +46,7 @@ export class CaixasComponent implements OnInit {
     );
   }
 
+  //Desativa um caixa Expecífico
   desativarCaixa(caixa : Caixa) {
     this.caixaService.enableCaixa(caixa.id).subscribe(
       (response: Caixa) => {

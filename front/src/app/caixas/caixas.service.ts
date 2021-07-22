@@ -8,18 +8,22 @@ import { Caixa } from '../models/Caixa';
   providedIn: 'root'
 })
 export class CaixasService {
+  //Url básica
   baseUrl = `${environment.urlBase}v1/caixa`;
 
   constructor(private http: HttpClient) { }
 
+  //Pega todos os caixas
   getAll() : Observable<Caixa[]> {
     return this.http.get<Caixa[]>(`${this.baseUrl}`);
   }
 
+  //Desativa um caixa
   disableCaixa(caixa_id : number): Observable<Caixa> {
     return this.http.get<Caixa>(`${this.baseUrl}/ativar/${caixa_id}`);
   }
 
+  //Ativa um caixa
   enableCaixa(caixa_id : number): Observable<Caixa> {
     return this.http.get<Caixa>(`${this.baseUrl}/desativar/${caixa_id}`);
   }

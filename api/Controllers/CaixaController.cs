@@ -20,7 +20,7 @@ namespace api.Controllers
             _context = context;
         }
 
-        //**Pegar caixas;
+        //**Retorna todos os caixas;
         [HttpGet]
         [Route("")]
         public async Task<ActionResult<List<Caixa>>> Get()
@@ -28,7 +28,7 @@ namespace api.Controllers
             return await _context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).AsNoTracking().ToListAsync();
         }
 
-        //**Sacar em um caixa;
+        //**Faz um Saque em um caixa;
         [HttpGet]
         [Route("saque/{caixa_id:int}/{valor:int}")]
         public async Task<ActionResult<List<NotaSaida>>> Saque(int caixa_id, float valor)

@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 
 namespace api.Data
 {
+    //** Repositorio padrão para uso posterior **//
     public class Repository : IRepository
     {
         private readonly DataContext _context;
