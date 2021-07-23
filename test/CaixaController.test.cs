@@ -30,20 +30,6 @@ namespace test
             _context.SaveChanges();
         }
 
-        [Test]
-        public async Task get_pega_todos_os_caixas()
-        {
-            //Arrange
-            var CaixaController = new CaixaController(_context);
-
-            //Act
-            var actionResult = await CaixaController.Get();
-            var okResult = actionResult.Value;
-
-            //Assert
-            Assert.AreEqual(4, okResult.Count);
-        }
-
         public void Dispose()
         {
             _context.Database.EnsureDeleted();

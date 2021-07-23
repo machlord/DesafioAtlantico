@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Collections.Generic;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,13 @@ namespace api.Data
                 }
             );
 
-            //**Dados TESTE **//
+            //Popula com exemplos
+            //seedCaixa(builder);
+        }
+
+        //**Dados TESTE **//
+        private void seedCaixa(ModelBuilder builder)
+        {
             //Criar os caixas para teste;
             builder.Entity<Caixa>().HasData(new List<Caixa>() {
                 new Caixa(1, "Caixa 01", true),
