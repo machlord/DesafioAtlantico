@@ -1,6 +1,7 @@
 using System.IO;
 using System.Net;
 using api.Data;
+using api.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -39,11 +40,24 @@ namespace api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "api", Version = "v1" });
             });
             services.AddScoped<IRepository, Repository>();
+
+            services.AddSignalR();
+
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowCredentials();
+                }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("CorsPolicy");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -67,18 +81,15 @@ namespace api
 
             app.UseRouting();
 
-            //Desabilitando momentaneamente Autorização e segurança;
-            //app.UseAuthorization();
-            app.UseCors(x => x.AllowAnyOrigin()
-                              .AllowAnyMethod()
-                              .AllowAnyHeader()
-                        );
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
+            app.UseEndpoints(endpoints =>
+           {
+               endpoints.MapHub<CaixaHub>("/caixahub");
+           });
         }
     }
 }

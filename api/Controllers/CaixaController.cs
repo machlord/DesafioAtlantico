@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNetCore.SignalR;
+using api.Hubs;
 
 namespace api.Controllers
 {
@@ -15,9 +17,11 @@ namespace api.Controllers
     public class CaixaController : ControllerBase
     {
         private readonly DataContext _context;
-        public CaixaController(DataContext context)
+        private readonly IHubContext<CaixaHub> _hub;
+        public CaixaController(DataContext context, IHubContext<CaixaHub> hub)
         {
             _context = context;
+            _hub = hub;
         }
 
         //**Retorna todos os caixas;
@@ -47,6 +51,8 @@ namespace api.Controllers
             //Persiste a mudança
             _context.Caixas.Update(caixa);
             await _context.SaveChangesAsync();
+
+            await _hub.Clients.All.SendAsync("atualizarCaixa", caixa);
             return retorno;
 
         }
@@ -71,7 +77,9 @@ namespace api.Controllers
                 var caixa = await _context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).FirstAsync();
                 caixa.AtivarCaixa();
                 _context.Caixas.Update(caixa);
+
                 await _context.SaveChangesAsync();
+                await _hub.Clients.All.SendAsync("caixaAtivoDesativadoHub", caixa, true);
 
                 return caixa;
             }
@@ -91,7 +99,9 @@ namespace api.Controllers
                 var caixa = await _context.Caixas.Include(c => c.CaixaNotas).ThenInclude(cn => cn.Nota).Where(x => x.id == caixa_id).FirstAsync();
                 caixa.DesativarCaixa();
                 _context.Caixas.Update(caixa);
+
                 await _context.SaveChangesAsync();
+                await _hub.Clients.All.SendAsync("caixaAtivoDesativadoHub", caixa, false);
 
                 return caixa;
             }
