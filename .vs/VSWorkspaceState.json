@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\api.test",
     "\\api\\Controllers",
     "\\api\\Models"
   ],
-  "SelectedNode": "\\LICENSE",
+  "SelectedNode": "\\api.test\\test.csproj",
   "PreviewInSolutionExplorer": false
 }
